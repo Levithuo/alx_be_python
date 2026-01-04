@@ -4,7 +4,7 @@ from simple_calculator import SimpleCalculator
 class TestSimpleCalculator(unittest.TestCase):
 
     def setUp(self):
-        """Set up a SimpleCalculator instance before each test."""
+        """Set up the SimpleCalculator instance before each test."""
         self.calc = SimpleCalculator()
 
     def test_addition(self):
@@ -26,4 +26,16 @@ class TestSimpleCalculator(unittest.TestCase):
         self.assertEqual(self.calc.multiply(2, 3), 6)
         self.assertEqual(self.calc.multiply(-2, 3), -6)
         self.assertEqual(self.calc.multiply(0, 100), 0)
+        self.assertEqual(self.calc.multiply(-4, -5), 20)
 
+    def test_divide(self):  # ✅ This is the fix! Name it 'test_divide', not 'test_division'
+        """Test the divide method, including division by zero."""
+        self.assertEqual(self.calc.divide(10, 2), 5.0)
+        self.assertEqual(self.calc.divide(-10, 2), -5.0)
+        self.assertEqual(self.calc.divide(0, 5), 0.0)
+        self.assertEqual(self.calc.divide(7, 2), 3.5)
+
+    def test_divide_by_zero(self):
+        """Test that divide returns None when dividing by zero."""
+        self.assertIsNone(self.calc.divide(10, 0))
+        self.assertIsNone(self.calc.divide(0, 0))
